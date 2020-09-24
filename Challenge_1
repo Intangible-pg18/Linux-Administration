@@ -1,0 +1,60 @@
+1. Run the following command both as a non-privileged user and as root: tail /etc/shadow
+Sol.
+Non-privileged user-: tail /etc/shadow
+-> tail: cannot open '/etc/shadow' for reading: Permission denied
+Privileged user-: sudo tail /etc/shadow
+-> [sudo] password for prateek: 
+ hplip:*:18474:0:99999:7:::
+ whoopsie:*:18474:0:99999:7:::
+ colord:*:18474:0:99999:7:::
+ geoclue:*:18474:0:99999:7:::
+ pulse:*:18474:0:99999:7:::
+ gnome-initial-setup:*:18474:0:99999:7:::
+ gdm:*:18474:0:99999:7:::
+ prateek:$6$u4f3GbYvPkYaPRQt$KdN/  SmmJ91NmcoDlb9LoThTDsJyT7eQxdkurqPzpVeuDasu4KSa04aAD.dYYXrmNLIush1XoQI  KhxyCa2EJ5a0:18521:0:99999:7:::
+ systemd-coredump:!!:18521::::::
+ vboxadd:!:18521::::::
+
+
+2.  Become root temporarily in a terminal.
+    Run the following command as root: apt update && apt install nmap
+    Logout root from the terminal using a keyboard shortcut
+Sol.
+su 
+-> Password: 
+apt update && apt install nmap
+-> nmap will install
+ctrl+d
+-> terminal closed
+
+
+3. Change (set) the root password
+   Become root in a terminal by running the su command
+   Run as root the following command: lshw
+Sol.
+sudo passwd root
+-> [sudo] password for prateek: 
+     New password: 
+     Retype new password: 
+     passwd: password updated successfully
+su
+-> Password: 
+lshw
+-> prateek-virtualbox          
+   description: Computer
+   product: VirtualBox.......
+
+
+4.  Display the user’s history
+Remove line no. 4 from the history
+Run a command without being recorded in the history. Check that it wasn’t saved in the shell history.
+Remove the entire history.
+Sol. 
+history
+-> shows the history list
+history -d 4
+-> line no. 4 was removed
+ pwd
+-> /home/prateek
+history
+-> " pwd" wasn't saved in the history because the environment variable, HISTCONTROL= ignorespace
