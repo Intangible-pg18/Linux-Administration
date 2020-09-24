@@ -1,0 +1,51 @@
+1. Create the following directory structure-:
+   /home/prateek/linux
+   ├── centos
+   │   ├── commands.txt
+   │   ├── security.txt
+   │   └── updates
+   │       └── latest
+   └── ubuntu
+       └── apt.txt
+Sol. 
+mkdir -p ~/linux/centos
+mkdir linux/ubuntu
+cd linux/centos
+touch commands.txt
+touch security.txt
+mkdir updates
+touch updates/latest
+cd ../ubuntu
+touch apt.txt
+
+
+2. Considering the above directory structure, copy the file called security.txt to the updates directory.
+   Remove the file called security.txt from the directory called updates.
+   Copy the directory called updates from centos to ubuntu.
+   Remove the directory called updates from ubuntu directory.
+   Using only one command copy the file called apt.txt and the directory called updates to linux directory.
+   Remove the file called apt.txt and the directory called updates from the linux directory interactively (by prompting the user).
+   Rename the directory called centos to redhat.
+   Copy the file called security.txt to ubuntu directory as sec.txt
+   
+Sol. 
+cp linux/centos/security.txt linux/centos/updates/security.txt
+rm linux/centos/updates/security.txt
+cp -r linux/centos/updates linux/ubuntu
+rm -r linux/ubuntu/updates
+cp -r linux/centos/updates linux/ubuntu/apt.txt linux
+rm -ri linux/updates linux/apt.txt
+mv  linux/centos linux/redhat
+cp linux/redhat/security.txt linux/ubuntu/sec.txt
+
+
+3. Create a file named users.txt by redirecting the output of the who command.
+   Remove the file in a secure manner by overwriting the file 50 times before removing.
+Sol. 
+who > users.txt
+shred -vun 50 users.txt
+
+
+4. Remove the entire directory structure without prompting.
+Sol.
+rm -rf ~/linux
