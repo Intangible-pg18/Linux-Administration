@@ -1,0 +1,22 @@
+1. If you create a file while using the linux terminal will the locate command be able to find it, right after it was created ? If not then what should one do?
+Sol. 
+No.
+touch pwd.txt
+sudo updatedb
+locate pwd.txt
+
+
+2. Find all regular files in /var that have a size bigger than 2 MB and apply cat command on each of them.
+Sol. 
+sudo find /var/* -size +2M -exec cat{} \;
+
+
+3. Create a backup of all the above files in a new directory.
+Sol. 
+mkdir Backup
+sudo find /var/* -size +2M -exec cp {} Backup \;
+
+
+4. From the files backed up above, delete the files which are not owned by the root user.
+Sol.
+sudo find /var -type f -not -user root -exec shred -vu -n 100 {} \;
