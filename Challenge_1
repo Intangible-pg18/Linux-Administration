@@ -1,3 +1,4 @@
+*********************The Linux Terminal*************************
 1. Run the following command both as a non-privileged user and as root: tail /etc/shadow
 Sol.
 Non-privileged user-: tail /etc/shadow
