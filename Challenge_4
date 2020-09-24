@@ -20,3 +20,18 @@ sudo find /var/* -size +2M -exec cp {} Backup \;
 4. From the files backed up above, delete the files which are not owned by the root user.
 Sol.
 sudo find /var -type f -not -user root -exec shred -vu -n 100 {} \;
+
+
+5. List out the last 5 authentications which failed, in your system.
+Sol. 
+cat /var/log//auth.log | tail -n 5 | grep "authentication failure"
+
+
+6. Print the total number of failed authentications that ever occured in your system.
+Sol.
+cat /var/log//auth.log | tail -n 5 | grep "authentication failure" | wc -l
+
+
+7. Give an example of redirection of stdout and stderr both to a single text file.
+Sol. 
+tail -n 3 /etc/passwd /etc/shadow > output.txt 2>&1 
