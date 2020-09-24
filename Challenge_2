@@ -1,0 +1,155 @@
+1. Move into the current user’s home directory using the cd command.
+   List the contents of /etc using the ls command and an absolute path.
+   Display the contents of /var/log/dmesg using the cat command and an absolute path.
+   Move into the root directory (/) using an absolute path.
+   List the contents of /etc using the ls command and an absolute path.
+Sol.
+cd ~
+pwd
+-> /home/prateek
+ls /etc
+-> acpi                           host.conf            popularity-contest.conf .......
+cat /var/log/dmesg
+-> [    0.000000] kernel: Linux version 5.4.0-47 .........
+cd /
+-> Inside root directory 
+ls /etc
+-> acpi                           host.conf            popularity-contest.conf .......
+
+
+2. Move into the current user’s home directory using the cd command and an absolute path. 
+   List the contents of the current directory using the ls command and a relative path.
+   List the contents of /home using the ls command and an absolute path.
+   List the contents of /home using the ls command and a relative path.
+   List the contents of /etc using the ls command and an absolute path.
+   List the contents of /etc using the ls command and a relative path.
+   Display the contents of /var/log/dmesg using the cat command and an absolute path.
+   Display the contents of /var/log/dmesg using the cat command and a relative path.
+Sol.
+cd /home/prateek
+pwd
+-> /home/prateek
+ls .
+-> Desktop  Documents  Downloads  Music  Pictures  Public  snap  Templates  Videos
+ls /home
+-> prateek
+ls ..
+-> prateek
+ls /etc
+-> acpi                           host.conf            popularity-contest.conf .......
+ls ../../etc
+-> acpi                           host.conf            popularity-contest.conf .......
+ls /var/log/dmesg
+-> [    0.000000] kernel: Linux version 5.4.0-47 ....
+ls ../../var
+-> [    0.000000] kernel: Linux version 5.4.0-47 ....
+
+
+3. Display the man page of ls and search for -d option.
+   Display the contents of /var/log using a long listing format.
+   Display information about the /var/log directory in long listing format.
+   Display the contents of /etc on a single column.
+   Display all files and directories (including hidden ones) from the user's home directory.
+   Display the contents of /var/log sorted by size in human readable format.
+Sol. 
+man ls
+->
+/-d
+-> -d was highlighted in the man page
+ls -l /var/log
+-> total 6468
+   -rw-r--r--  1 root              root              25897 Sep 24 07:24 alternatives.log
+ls -ld /var/log
+-> drwxrwxr-x 13 root syslog 4096 Sep 24 06:45 /var/log
+ls -1 /etc
+-> acpi
+   adduser.conf
+   alsa...
+ls -a 
+-> .              .config    .local    snap ....
+ls -lSh /var/log
+-> total 6.4M
+   -rw-r-----  1 syslog            adm             3.5M Sep 24 06:37 syslog.1 .....
+
+
+4. Create a new file called linux.txt in the user’s home directory using the touch command.
+   Display all three imestamps of the file.
+   Display the entire timestamp of the file.
+   Update the timestamps to the system current date and time.
+   Change only the modification time manually to 1990, January 15, 10:30:55 AM.
+Sol.
+touch linux.txt
+-> The file was created
+stat linux.txt
+->   File: linux.txt
+     Size: 0         	Blocks: 0          IO Block: 4096   regular empty file
+  Device: 805h/2053d	Inode: 677408      Links: 1
+  Access: (0664/-rw-rw-r--)  Uid: ( 1000/ prateek)   Gid: ( 1000/ prateek)
+  Access: 2020-09-24 08:16:59.135762704 +0530
+  Modify: 2020-09-24 08:16:59.135762704 +0530
+  Change: 2020-09-24 08:16:59.135762704 +0530
+   Birth: -
+ls --full-time linux.txt
+-> -rw-rw-r-- 1 prateek prateek 0 2020-09-24 08:16:59.135762704 +0530 linux.txt
+touch linux.txt
+-> All three timestamps were changed to the system's current time.
+touch -mt 199001151030.55 linux.txt
+-> Only the mtime of the file was changed to the desired value.
+
+
+5. List the contents of /var/log displaying the access time of the files and sorting by file names in reverse order.
+Sol. ls -lur /var/log
+-> total 6468
+   -rw-rw-r--  1 root              utmp              17280 Sep 24 06:38 wtmp
+   -rw-r--r--  1 root              root                  1 Sep 16 22:27 vboxadd-uninstall.log .......
+   
+
+6. Determine the type of all the files in the current directory
+   Determine the type of all the files in the /etc directory
+Sol. 
+file *
+-> Desktop:   directory
+   Documents: directory .....
+file /etc/*
+-> /etc/acpi:                          directory
+   /etc/adduser.conf:                  ASCII text ....
+   
+   
+7. List the contents of /var/log/dmesg while displaying the line numbers as well.
+   Display the contents of /etc/ssh/ssh_config page by page
+   Go to the end and then to the beginning of the file using the right shortcuts.
+   Quit less
+   Concatenate /etc/hosts and /etc/host.config to a single file
+Sol.
+cat -n /var/log/dmesg
+-> 1  [    0.000000] kernel: Linux version 5.4.0-47-generic (buildd@lcy01-amd64-014) (gcc version 9.3.0 (Ubuntu 9.3.0-10ubuntu2)) #51-Ubuntu SMP Fri Sep 4 19:50:52 UTC 2020 (Ubuntu 5.4.0-47.51-generic 5.4.55)
+   2  [    0.000000] kernel: Command line: BOOT_IMAGE=/boot/vmlinuz-5.4.0-47-generic root=UUID=730e7505-910a-461f-9f2a-5a56a7e7ea91 ro quiet splash .........
+less /etc/ssh//ssh_config
+-> # This is the ssh client system-wide configuration file.  See
+   # ssh_config(5) for more information.  This file provides defaults for...
+Pressing g
+-> Moved to the beginning of the file
+Pressing shift+g 
+-> Moved to the end of the file
+Pressing q
+-> Back to the terminal
+cat /etc/hosts /etc/host.config > my_host.txt
+-> /etc/hosts was appended by /etc/host.config and stored in my_host.txt in the current directory.
+
+
+8. Display the contents of /etc/group starting with line 5
+   Display the last 12 lines of /var/log/auth.log in real-time.
+   Display the contents of the user’s home directory repeatedly every 2 seconds.
+Sol.
+head -n +5 /etc/group
+-> root:x:0:
+   daemon:x:1:
+   bin:x:2:
+   sys:x:3:
+   adm:x:4:syslog,prateek
+tail -n 12 -f /var/log/auth.log
+-> Sep 24 08:54:38 prateek-VirtualBox su: pam_unix(su:auth): Couldn't open /etc/securetty: No such file or directory .....
+watch -n 2 ls
+-> Every 2.0s: ls ......
+ctrl+c
+-> Back to the terminal
