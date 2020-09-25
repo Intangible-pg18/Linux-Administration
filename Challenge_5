@@ -1,0 +1,27 @@
+1. Create a new user, set his password and login as that user in the terminal. 
+Sol. 
+sudo useradd Eddie
+sudo passwd Eddie
+su Eddie
+
+
+2. Create a new user using the useradd specifying the following: the home directory (which will be created as well), the Bash shell and a comment. 
+   Create a new group using the groupadd command and then add the user to the newly created group.
+   Check the groups to which the user belongs.
+Sol.
+sudo groupadd grp
+sudo useradd -m -c "New User" -s /bin/bash -G grp U1
+sudo passwd U1
+groups U1
+
+
+3. The user created above is unable to view the contents of /etc/shadow file even with the sudo command. Identify the issue and try to solve it. 
+Sol. 
+sudo usermod -aG sudo U1
+
+
+4. Remove all the groups and users created above and also delete their home directories.
+Sol. 
+sudo userdel -r Eddie
+sudo userdel -r U1
+sudo groupdel U1
