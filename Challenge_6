@@ -1,0 +1,63 @@
+1. Create a file as a non-previleged user, show it's permissions and change them to -:
+   User (Owner)-:  Write & Execute
+   Group (Group Owner) -: Read & Execute
+   Others -: Null
+   using both symbolic and octal notations.
+Sol.
+touch flip.txt
+ls flip.txt
+chmod u=wx,g=rx,o= flip.txt
+OR
+chmod 350 flip.txt
+
+
+2. A non-previleged user cannot view the contents of the shadow file USING CAT command, without using less command or without becoming root how can he access and 
+   view it's content.
+Sol. 
+By setting the SUID bit for the file.
+sudo chmod 4755 /usr/bin/cat
+
+
+3. Create a shared directory, "programming" for a group "programmers" provided that no user no other can use it and the owner of the directory is one of the 
+   programmers and the group owner as the programmers group.
+Sol. 
+groupadd programmers
+useradd -aG programmers pr1
+usermod -aG programmers pr2
+mkdir /programming
+chown pr1:programmers /programming
+chmod 770 /programming
+su pr1
+cd /programming
+touch source1.cpp
+ls -l source1.cpp=> THE GROUP OWNER OF THE FILE IS THE PRIMARY GROUP OF THE CREATOR (pr1) & THE OTHER USERS IN THE SAME GROUP WON'T BE ABLE TO WORK ON IT. 
+                    Sol. Set SGID bit
+exit
+chmod 2770 /programming
+su pr2
+cd /programming
+touch source2.cpp
+ls -l source2.cpp => THE GROUP OWNER OF THE FILE IS THE GROUP OF THE PARENT DIRECTORY ISTEAD OF THE PRIMARY GROUP OF THE CREATOR (pr2) AND OTHER MEMBERS OF THE
+                     GROUP CAN ONLY WORK ON IT.
+                     
+                     
+4. Create a shared directory in which no user can delete other user's file.
+Sol.
+su
+mkdir /temp
+chmod 777 /temp
+ls -l /temp => Owner and Group Owner both = root
+su user1
+cd /temp
+touch f1.txt f2.txt
+chmod 600 f*
+ls -l => rw------- (for both files). THE FILE PERMISSION DOES NOT ALLOWS TO READ OR WRITE THE FILE BUT THE PARENT DIRECTORY'S PERMISSION PERMITS IT.
+su user2
+rm -rf f1.txt => REMOVED (!!!!!!!!). Sol. Set Sticky bit
+sudo chmod 1777 /temop
+su user2
+rm -rf f2.txt => NOT ALLOWED :)
+
+SUID -: TO CHANGE THE OWNER OF THE FILE
+SGID -: TO CHANGE THE GROUP OWNER OF THE FILE
+STICKY -: TO CHANGE THE DELETION PERMISSION OF THE FILE
