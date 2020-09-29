@@ -1,0 +1,52 @@
+1. List all running processes.
+   Check if a process named bash is running (using 2 different commands)
+Sol.
+ps -ef 
+ps -ef | grep bash
+OR
+psgrep  -l bash
+
+
+2. Using the ps command list all processes sorted by memory in reverse order.
+   Redirect the output to a file called processes.txt
+Sol.
+ps -aux --sort=-%mem > processes.txt
+
+
+3. Show the real time view of the processes running for user1 and highlight the processes and the sorting column.
+Sol.
+top
+Press u and then user1
+Press y => HIghlighting the running process
+Press x => Highlighting the sorting column.
+
+
+4. Send the terminate signal to the current terminal
+Sol. 
+ps -ef | grep term
+kill 1918
+
+
+5. Start a graphical application like Firefox and send the interupt signal to it.
+   Restart Firefox and open another tab in a new window. Now close all the running instances of Firefox
+Sol.
+kill -SIGINT $(pidof firefox)
+------------------------------------
+pkill -15 firefox
+
+
+6. Run the command "ls -lR /" in the foreground, pause the process and resume it
+Sol. 
+ls -lR /
+CTRL+Z
+jobs
+fg %2
+
+
+7. Run sleep 100 in the background. Close the terminal, open it again and check if the process is still running. If it’s not running, run sleep 100 again 
+   making it immune to the closing terminal.
+Sol.
+sleep 100 &
+pgrep -l sleep
+nohup sleep 200 &
+pgrep -l sleep
