@@ -4,4 +4,6 @@ Challenge_2 -: Paths, ls, file, touch, watch, timestamps, types and viewing file
 Challenge_3 -: cp, mv, rm, shred  **
 Challenge_4 -: locate, find, pipe, redirection  **
 Challenge_5 -: User Account Management  **
-Challenge_6 -: Processes in Linux  **
+Challenge_6 -: File Permissions and Ownership  **
+Challenge_7 -: Processes in Linux **
+Challenge_8 -: Software and Package Management **
