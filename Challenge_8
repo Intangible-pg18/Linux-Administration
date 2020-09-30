@@ -1,0 +1,36 @@
+1.     Download the Google Earth package (.deb) for Ubuntu from this address: https://www.google.com/intl/en_in/earth/versions/
+       Install the app using the locally downloaded .deb file and dpkg
+       Start the application.
+       Remove the Google Earth application using dpkg
+       Install Google Earth again using apt and the deb file.
+Sol.
+ls
+sudo dpkg -i google-earth-pro-stable_current_amd64.deb
+dpkg-query -l | grep earth
+sudo dpkg -P google-earth-pro-stable
+sudo apt install ./google-earth-pro-stable_current_amd64.deb
+
+
+2. Display all installed applications in your system.
+   Take any linux command and check to which package it belongs.
+   List all other files from that package.
+Sol. 
+dpkg-query -l
+which stat
+dpkg -S /usr/bin/stat
+dpkg -L coreutils
+
+
+3. Search for a package named squid in the official repositories and display information about it.
+   Upgrade all applications assuming yes to each prompt.
+Sol.
+apt list | grep squid
+apt show squid
+sudo apt full-upgrade -y
+
+
+4. Uninstall any package using apt.
+   Remove all the dependencies in your system
+Sol.
+sudo apt purge google-earth-pro-stable
+sudo apt autoremove
