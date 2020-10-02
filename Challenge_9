@@ -59,7 +59,10 @@ Once kernel is setup, it begins the systemd initialization system
 Systemd starts with process id, 1, as the first process, tghen takes over and continues to mount the host's file system & starts the services.
 
 
-7. 
+7. Install the nginx web server.
+   Check that it’s running.
+   Set the server NOT to start automatically when the computer boots up.
+Sol.
 sudo apt update && sudo apt install nginx
 systemctl status nginx
 sudo systemctl disable nginx
