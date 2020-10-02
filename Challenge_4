@@ -1,4 +1,5 @@
-1. If you create a file while using the linux terminal will the locate command be able to find it, right after it was created ? If not then what should one do?
+1. If you create a file while using the linux terminal will the locate command be able to find it, right after it was created ? If not then what should 
+   one do?
 Sol. 
 No.
 touch pwd.txt
