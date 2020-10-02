@@ -1,0 +1,66 @@
+1. Create a cron job for the currently logged in user that writes the current date and time to a file every 3 minutes.
+Sol.
+crontab -e
+choosing vim
+crontab -l
+Accessing insert mode
+Inserting -: */3 * * * * date >> ~/date.txt
+
+
+2. Create a cron job that runs as root and fully upgrades the system every Sunday and 5:10AM
+Sol.
+su
+crontab -l
+10 5 * * 0 apt iupdate && apt full-upgrade -y
+
+
+3. Run a backup script -:
+   Every minute
+   Everyday at 4,6 & 10 AM
+   On weekdays between 9AM & 5AM once per hour
+   Every three days at 4AM and 9PM at the 10th minute
+   Once a year on 1st January, midnight
+Sol.
+crontab -e
+crontab -l
+* * * * * /root/backup.sh
+* 4,6,10 * * * /root/backup.sh
+* 9-17 * * 1-5 /root/backup.sh
+10 4,21 */3 * * /root/backup.sh
+@yearly /root/backup.sh
+
+
+4. Identify the partition where the root file system (/) is mounted.
+   Create a directory on the Desktop and mount that partition there as well in read mode.
+   Undo the changes from read only to read and write modes.
+   Unmount it if it is not being used
+   Unmount it if it is being used
+Sol.
+df -h
+mkdir Desktop/new_dir
+sudo mount -o ro /dev/sda5 ~/Desktop/new_dir
+sudo mount -o rw,remount /dev/sda5 ~/Desktop/new_dir
+sudo unmount ~/Desktop/new_dir
+sudo unmount -l ~/Desktop/new_dir
+
+
+5. Consider an iso file and mount it on the Desktop
+Sol.
+mkdir  ~/Desktop/iso
+sudo mount new.iso ~/Desktop/iso -o loop
+
+
+6. How coes systemd starts in a linux environment.
+Sol.
+System powers up.
+Bootloader (grub) loads the kernel.
+Kernel logs an initial RAM that logs an system drive and looks for the root file system
+Once kernel is setup, it begins the systemd initialization system
+Systemd starts with process id, 1, as the first process, tghen takes over and continues to mount the host's file system & starts the services.
+
+
+7. 
+sudo apt update && sudo apt install nginx
+systemctl status nginx
+sudo systemctl disable nginx
+sudo systemctl is-enabled nginx
