@@ -25,12 +25,12 @@ sudo find /var -type f -not -user root -exec shred -vu -n 100 {} \;
 
 5. List out the last 5 authentications which failed, in your system.
 Sol. 
-cat /var/log//auth.log | tail -n 5 | grep "authentication failure"
+cat /var/log/auth.log | tail -n 5 | grep "authentication failure"
 
 
 6. Print the total number of failed authentications that ever occured in your system.
 Sol.
-cat /var/log//auth.log | tail -n 5 | grep "authentication failure" | wc -l
+cat /var/log//auth.log | grep "authentication failure" | wc -l
 
 
 7. Give an example of redirection of stdout and stderr both to a single text file.
