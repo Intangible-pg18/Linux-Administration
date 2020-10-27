@@ -8,4 +8,4 @@ Challenge_6 -: File Permissions and Ownership  **
 Challenge_7 -: Processes in Linux **
 Challenge_8 -: Software and Package Management **
 Challenge_9 -: System Administration **
-Challenge_10 -: Bash Scripting **
+Challenge_9+1 -: Bash Scripting **
