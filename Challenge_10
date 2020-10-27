@@ -1,0 +1,208 @@
+1. Create a Bash script named script1.sh. Add the shebang.
+   Define a variable called country that holds the country you are living in.
+   Print the message: You live in YOUR_COUNTRY.
+Sol.
+#!/bin/bash
+country="Romania"
+echo "I live in $country."
+
+
+2. Create a script and define two string variables.
+   Add a commented line after the shebang and another inline comment.
+   Create a new variable by concatenating the two string variables.
+Sol.
+#!/bin/bash 
+# This is a very simple Bash script.
+var1="Ubuntu " 
+var2="20.04" 
+var3="$var1$var2" # concatenating 2 strings
+echo $var3
+
+
+3. Develop a Bash script that creates a new group and a new username. The group will be the user’s secondary group.
+   The username and the group will be given as input by the user that runs the script.
+   The script will also display the last 2 lines from the files where the users and the groups are saved in Linux.
+Sol.
+#!/bin/bash
+read -p "Enter the group name to create: " group
+read -p "Enter the username to create: " username
+groupadd $group
+useradd -s /bin/bash -m -G $group $username
+tail -n 2 /etc/group
+echo 
+tail -n 2 /etc/passwd
+echo
+echo "The group $group and the username $username were created!"
+
+
+4. Create a script called fix_permissions.sh that prompts the user for a directory and changes the permissions of all subdirectories to 755 and to all files to 644 recursively.
+Sol.
+#!/bin/bash
+read -p "Enter directory: " dir
+echo -n "Changing files permissions to 644 recursively..."
+find $dir -type f -exec chmod 644 {} \;
+echo "Done"
+echo -n "Changing subdirectories permissions to 755 recursively..."
+find $dir -type d -exec chmod 755 {} \;
+echo "Done"
+
+
+5. Create a script that takes an argument and tests if it's a file or not.
+Sol.
+#!/bin/bash
+if [[ -f "$1" ]]
+then	
+	echo "The argument is a regular file."
+else
+	echo "The argument is not a regular file."
+fi
+
+
+6. Consider the solution from the previous challenge. Change it so that it tests if the script is run with exactly one argument.
+Sol.
+#!/bin/bash
+if [[ $# -eq 1 ]]
+then
+	if [[ -f "$1" ]]
+	then	
+		echo "The argument is a regular file."
+	else
+		echo "The argument is not a regular file."
+	fi
+else
+	echo "The script was run with $# arguments. You should run it with exactly one argument."
+fi
+
+
+7. Create a script that clears the contents of a text file which is the script’s argument.
+   Test that the argument is a file.
+Sol.
+#!/bin/bash
+if [[ -f $1 ]]
+then
+	echo "" > $1 
+    # cat /dev/null > $1
+	echo "$1 contents was cleared!"
+else
+	echo "The script's argument should be a file!"
+fi
+
+
+8. Develop a script that appends to a file the currently logged in users and the current date and time.
+Sol.
+#!/bin/bash
+users="`who | cut -f1 -d" "`"
+date_time="`date +%F\ %H:%M`"   #\ to escape the whitespace
+echo $date_time >> logged_users.txt
+echo "-------------------------" >> logged_users.txt
+echo $users >> logged_users.txt
+echo >> logged_users.txt 
+
+
+9. Create a script that takes exactly two arguments. The first argument is a shell command and the second argument is a string. The script will check if the string belongs to the 
+   output of the command.
+Sol.
+#!/bin/bash
+if [[ $# -ne 2 ]]
+then
+	echo "Run the script with exactly two arguments."
+	exit
+else
+	output="`$1`"
+	if [[ "$output" == *"$2"* ]]
+	then
+		echo "$2 belongs to the output of $1"
+	else
+		echo "$2 DOES NOT belongs to the output of $1"
+	fi
+fi
+
+
+10. Create a script that prompts the user for a file. Test that it’s a file.
+    Prompt the user for 2 positive integers n and m.
+    Display the lines (from line number n to m, both inclusive) of the text file.
+Sol.
+#!/bin/bash
+read -p "Enter a file: " file
+
+if [[ -f $file ]]
+then
+		read -p "Enter a positive integer n: " n
+		read -p "Enter a positive integer m: " m
+		q=$((m-n+1)) # no. of lines to display
+
+		tail -n "+$n" $file | head -n $q
+else
+	echo "$file is not a file."
+fi
+
+
+11. Develop a script that prompts the user for a number n. 
+    Add a testing condition so that the user enters a positive integer less than 100
+    and then it creates a file every 3 seconds and the name of each file will be current_minute_second
+Sol.
+#!/bin/bash
+read -p "Enter the number of files to create:" n
+if [[ $n -le 0 ]] || [[ $n -ge 100 ]] 	# || is the logical OR operator
+then
+	echo "You entered $n. Enter a positive integer less than 100."
+	exit 
+fi
+i=0
+while [[ $i -lt $n ]]
+do
+	minute_second="$(date +%M%S)"
+	echo "Creating $minute_second"
+	touch "$minute_second"
+	((i++))
+	sleep 3
+done
+echo "$n files were created!"
+
+
+12. Create a script that takes 3 arguments: a file extension, a source directory and a destination directory given as absolute or relative paths to the script. 
+    The script will copy all the files with that extension from the source directory to the destination directory.
+Sol.
+#!/bin/bash
+# $1 - file extention (without .)
+# $2 - source directory
+# $3 - destination directory
+for file in $2/*.$1
+do
+	echo "Copying $file to $3"
+	sleep 1
+	cp $file $3
+done
+
+
+13. Create a Bash Menu with the following entries:
+    Display Date and Time
+    List users logged in
+    Display disk usage
+    Change the Menu Prompt to the string Choose:
+Sol.
+#!/bin/bash
+PS3="Choose:"
+select MENUITEM in "Display Date and Time" "List users logged in" "Display disk usage" "Quit"
+do
+	case $REPLY in
+		1)
+			date
+			;;
+		2)
+			who -aH
+			;;
+		3)
+			df -h
+			;;
+		4)
+
+			echo "Quitting ..."
+			sleep 1
+			exit
+			;;
+		*)
+			echo "Unknown selection."
+			;;
+	esac
+done
